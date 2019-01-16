@@ -91,6 +91,15 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->fallbacks(DashedRoute::class);
 });
 
+
+
+Router::scope('/users', ['plugin' => 'CakeDC/Users'], function ($routes) {
+    $routes->connect('/', ['controller' => 'Users', 'action'=>'index']);
+    $routes->connect('/:action', ['controller' => 'Users']);
+    $routes->fallbacks('DashedRoute');
+});
+
+
 /**
  * If you need a different set of middleware or none at all,
  * open new scope and define routes there.

@@ -37,9 +37,16 @@ class AppController extends Controller
      *
      * @return void
      */
+
+
+    protected $session;
+
+
     public function initialize()
     {
         parent::initialize();
+
+        $this->loadComponent('Auth');
 
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
@@ -51,5 +58,10 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+
+        $this->session = $this->getRequest()->getSession();
+        $this->Auth->deny();
+        $this->set('session', $this->session->read('Auth.User'));
+        //debug($this->session->read());
     }
 }
